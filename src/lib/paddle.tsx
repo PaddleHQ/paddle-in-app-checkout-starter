@@ -59,7 +59,7 @@ export function usePaddle({ priceId, userEmail, appUserId }: UsePaddleProps) {
         }
       });
     }
-  }, [paddle?.Initialized, priceId, userEmail]);
+  }, [paddle?.Initialized, priceId, userEmail, forcedTheme, router, appUserId]);
 
   return {
     checkoutData,

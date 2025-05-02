@@ -2,7 +2,7 @@ const appleTeamId = process.env.APPLE_TEAM_ID;
 const bundleId = process.env.NEXT_PUBLIC_BUNDLE_IDENTIFIER;
 const appID = `${appleTeamId}.${bundleId}`;
 
-export async function GET(_request: Request) {
+export async function GET() {
   return Response.json(
     {
       applinks: {

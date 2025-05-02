@@ -3,8 +3,9 @@
 import { getMobileRedirectUrl } from "@/lib/redirect";
 import { ArrowLeft } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function CheckoutSuccess() {
+function Success() {
   const params = useSearchParams();
   const transactionId = params.get("txn-id");
 
@@ -17,5 +18,13 @@ export default function CheckoutSuccess() {
         </a>
       )}
     </div>
+  );
+}
+
+export default function CheckoutSuccess() {
+  return (
+    <Suspense>
+      <Success />
+    </Suspense>
   );
 }
