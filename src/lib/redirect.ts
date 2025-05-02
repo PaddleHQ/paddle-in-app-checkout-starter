@@ -1,5 +1,9 @@
+const redirectUrl = process.env.NEXT_PUBLIC_APP_REDIRECT_URL;
+
 export function getMobileRedirectUrl(transactionId: string): string {
-  // Create a deeplink URL for both iOS and Android
-  // Format: yourapp://checkout/success?transactionId=123
-  return `yourapp://checkout/success?transactionId=${transactionId}`;
+  if (!redirectUrl) {
+    throw new Error("Missing redirect URL");
+  }
+
+  return `${redirectUrl}?transactionId=${transactionId}`;
 }
