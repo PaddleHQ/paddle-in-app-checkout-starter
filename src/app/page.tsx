@@ -22,10 +22,10 @@ function Checkout() {
 
   return (
     <div className="grid place-items-center">
-      <div className="p-2 w-[300px] pt-6">
+      <div className="p-2 max-w-[643px] w-full pt-6">
         {checkoutData ? <ProductDetails checkoutData={checkoutData} /> : <ProductDetailsSkeleton />}
       </div>
-      <div className="paddle-checkout-frame" />
+      <div className="paddle-checkout-frame w-full" />
     </div>
   );
 }
