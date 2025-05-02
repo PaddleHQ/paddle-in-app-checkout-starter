@@ -2,9 +2,9 @@
 
 import { getMobileRedirectUrl } from "@/lib/redirect";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
-export default function CheckoutRedirect() {
+function Redirect() {
   const params = useSearchParams();
   const transactionId = params.get("txn-id");
 
@@ -28,8 +28,16 @@ export default function CheckoutRedirect() {
     <div className="grid h-screen place-items-center">
       <div className="text-center">
         <h1 className="text-xl font-semibold">Processing your purchase...</h1>
-        <p className="mt-2">You'll be redirected to the app in a moment.</p>
+        <p className="mt-2">You&apos;ll be redirected to the app in a moment.</p>
       </div>
     </div>
+  );
+}
+
+export default function CheckoutRedirect() {
+  return (
+    <Suspense>
+      <Redirect />
+    </Suspense>
   );
 }
