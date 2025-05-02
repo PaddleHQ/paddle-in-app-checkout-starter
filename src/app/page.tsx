@@ -6,12 +6,19 @@ import { usePaddle } from "@/lib/paddle";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
+const defaultPriceId = process.env.NEXT_PUBLIC_PADDLE_PRICE_ID;
+
 function Checkout() {
   const params = useSearchParams();
   const userEmail = params.get("email") ?? undefined;
   const appUserId = params.get("app-user-id") ?? undefined;
+  const priceId = params.get("price-id") ?? defaultPriceId ?? "";
 
-  const { checkoutData } = usePaddle({ priceId: "pri_01jqe92zv7x93y7kv01emkra5z", userEmail, appUserId });
+  const { checkoutData } = usePaddle({ priceId, userEmail, appUserId });
+
+  if (!priceId) {
+    return <div className="grid place-items-center p-8 text-xl">Missing price ID</div>;
+  }
 
   return (
     <div className="grid place-items-center">

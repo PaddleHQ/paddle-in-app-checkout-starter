@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
+const theme = process.env.NEXT_PUBLIC_THEME ?? "light";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" forcedTheme="light" enableColorScheme={false} disableTransitionOnChange>
+        <ThemeProvider attribute="class" forcedTheme={theme} enableColorScheme={false} disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>
