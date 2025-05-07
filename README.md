@@ -39,7 +39,7 @@ This starter project provides a fully functional implementation of a Paddle chec
 - `src` Main application code
   - `app` Next.js app directory
     - `.well-known` Contains Apple app site association file
-    - `checkout` Checkout success and redirect pages
+    - `checkout_redirect` Checkout success and redirect pages
     - `page.tsx` Main checkout page
   - `components` React components
     - `ui` UI components

@@ -10,7 +10,7 @@ export async function GET() {
         details: [
           {
             appID: appID,
-            paths: ["/checkout/*"],
+            paths: ["/checkout_redirect*"],
           },
         ],
       },

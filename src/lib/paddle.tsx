@@ -30,7 +30,7 @@ export function usePaddle({ priceId, userEmail, appUserId }: UsePaddleProps) {
         environment: process.env.NEXT_PUBLIC_PADDLE_ENV as Environments,
         eventCallback: (event) => {
           if (event.name === "checkout.completed") {
-            router.push(`/checkout/redirect?txn-id=${event.data?.transaction_id}`);
+            router.push(`/checkout_redirect/success?txn=${event.data?.transaction_id}`);
           }
 
           if (event.data && event.name) {
