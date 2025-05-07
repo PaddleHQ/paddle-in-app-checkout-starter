@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 function Success() {
   const params = useSearchParams();
-  const transactionId = params.get("txn-id");
+  const transactionId = params.get("txn");
 
   return (
     <div className="grid h-dvh place-items-center py-12 px-4">
