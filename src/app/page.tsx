@@ -21,7 +21,7 @@ function Checkout() {
   }
 
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center max-w-4xl mx-auto gap-4 p-0 lg:grid-cols-[300px_1fr] lg:gap-16 lg:p-8 lg:place-items-start">
       <div className="p-2 max-w-[643px] w-full pt-6">
         {checkoutData ? <ProductDetails checkoutData={checkoutData} /> : <ProductDetailsSkeleton />}
       </div>
