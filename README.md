@@ -10,7 +10,7 @@ Even though you're redirecting users to Web to complete their purchase, **Apple 
 
 ## ⚡️ Instantly clone & deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPaddleHQ%2Fpaddle-in-app-checkout-starter&env=NEXT_PUBLIC_PADDLE_CLIENT_TOKEN,NEXT_PUBLIC_PADDLE_ENV,NEXT_PUBLIC_PADDLE_PRICE_ID,APPLE_TEAM_ID,NEXT_PUBLIC_BUNDLE_IDENTIFIER)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPaddleHQ%2Fpaddle-in-app-checkout-starter&env=APPLE_TEAM_ID,NEXT_PUBLIC_BUNDLE_IDENTIFIER,NEXT_PUBLIC_APP_REDIRECT_URL,NEXT_PUBLIC_PADDLE_CLIENT_TOKEN,NEXT_PUBLIC_PADDLE_ENV,NEXT_PUBLIC_PADDLE_PRICE_ID)
 
 ## 🔦 About
 
@@ -68,10 +68,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Create a `.env.local` file based on `.env.example` with the following variables:
 
+- `APPLE_TEAM_ID` - Your Apple Team ID (for Universal Links)
+- `NEXT_PUBLIC_BUNDLE_IDENTIFIER` - Your iOS app's bundle identifier
+- `NEXT_PUBLIC_APP_REDIRECT_URL` - The redirect url back to your app
 - `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN` - Your Paddle client token
 - `NEXT_PUBLIC_PADDLE_ENV` - Paddle environment (`sandbox` or `production`)
 - `NEXT_PUBLIC_PADDLE_PRICE_ID` - The ID of your Paddle price
-- `APPLE_TEAM_ID` - Your Apple Team ID (for Universal Links)
-- `NEXT_PUBLIC_BUNDLE_IDENTIFIER` - Your iOS app's bundle identifier
+- `NEXT_PUBLIC_THEME` - The theme of your checkout, can be light or dark (optional)
 
 For more detailed setup instructions, check out [Paddle's documentation on opening a checkout from iOS apps](https://developer.paddle.com/build/launch-ios-app-checkout).
