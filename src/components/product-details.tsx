@@ -1,17 +1,16 @@
-import type { CheckoutEventsData, CheckoutEventsTimePeriod } from "@paddle/paddle-js/types/checkout/events";
 import { Separator } from "@/components/ui/separator";
-
-function formatTrialPeriod(trialPeriod: CheckoutEventsTimePeriod) {
-  const interval = trialPeriod.frequency === 1 ? trialPeriod.interval : `${trialPeriod.interval}s`;
-
-  return `${trialPeriod.frequency} ${interval}`;
-}
+import { formatBillingCycle } from "@/utils/format-billing-cycle";
+import { formatCurrency } from "@/utils/format-currency";
+import { formatTrialPeriod } from "@/utils/format-trial-period";
+import type { CheckoutEventsData } from "@paddle/paddle-js/types/checkout/events";
 
 type ProductDetailsProps = {
   checkoutData: CheckoutEventsData;
 };
 
 export function ProductDetails({ checkoutData }: ProductDetailsProps) {
+  const currency = checkoutData.currency_code;
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
@@ -25,21 +24,11 @@ export function ProductDetails({ checkoutData }: ProductDetailsProps) {
         <div>
           <h2 className="text-lg font-semibold">{checkoutData.items[0].product.name}</h2>
           <div className="flex flex-col">
-            <p>
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: checkoutData.currency_code,
-              }).format(checkoutData.totals.total)}{" "}
-              now
-            </p>
+            <p>{formatCurrency(checkoutData.totals.total, currency)} now</p>
             {checkoutData.recurring_totals && checkoutData.items[0].billing_cycle && (
-              <p className="text-sm text-muted-foreground -mt-1">
-                Then{" "}
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: checkoutData.currency_code,
-                }).format(checkoutData.recurring_totals.total)}
-                /{checkoutData.items[0].billing_cycle.interval}
+              <p className="text-sm text-muted-foreground">
+                Then {formatCurrency(checkoutData.recurring_totals.total, currency)}/
+                {formatBillingCycle(checkoutData.items[0].billing_cycle)}
                 {checkoutData.items[0].trial_period?.interval &&
                   ` after ${formatTrialPeriod(checkoutData.items[0].trial_period)}`}
               </p>
@@ -51,31 +40,16 @@ export function ProductDetails({ checkoutData }: ProductDetailsProps) {
         <Separator className="w-full" />
         <div className="flex justify-between">
           <p className="text-muted-foreground">Subtotal</p>
-          <p>
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: checkoutData.currency_code,
-            }).format(checkoutData.totals.subtotal)}
-          </p>
+          <p>{formatCurrency(checkoutData.totals.subtotal, currency)}</p>
         </div>
         <div className="flex justify-between">
           <p className="text-muted-foreground">Tax</p>
-          <p>
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: checkoutData.currency_code,
-            }).format(checkoutData.totals.tax)}
-          </p>
+          <p>{formatCurrency(checkoutData.totals.tax, currency)}</p>
         </div>
         <Separator className="w-full" />
         <div className="flex justify-between">
           <p className="text-muted-foreground">Total</p>
-          <p>
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: checkoutData.currency_code,
-            }).format(checkoutData.totals.total)}
-          </p>
+          <p>{formatCurrency(checkoutData.totals.total, currency)}</p>
         </div>
       </div>
     </div>
