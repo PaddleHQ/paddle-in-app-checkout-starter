@@ -1,7 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { formatBillingCycle } from "@/utils/format-billing-cycle";
-import { formatCurrency } from "@/utils/format-currency";
-import { formatTrialPeriod } from "@/utils/format-trial-period";
+import { formatBillingCycle, formatCurrency, formatTrialPeriod } from "@/lib/format";
 import type { CheckoutEventsData } from "@paddle/paddle-js/types/checkout/events";
 
 type ProductDetailsProps = {
