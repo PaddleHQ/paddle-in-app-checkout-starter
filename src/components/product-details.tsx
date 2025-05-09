@@ -1,5 +1,11 @@
-import type { CheckoutEventsData } from "@paddle/paddle-js/types/checkout/events";
+import type { CheckoutEventsData, CheckoutEventsTimePeriod } from "@paddle/paddle-js/types/checkout/events";
 import { Separator } from "@/components/ui/separator";
+
+function formatTrialPeriod(trialPeriod: CheckoutEventsTimePeriod) {
+  const interval = trialPeriod.frequency === 1 ? trialPeriod.interval : `${trialPeriod.interval}s`;
+
+  return `${trialPeriod.frequency} ${interval}`;
+}
 
 type ProductDetailsProps = {
   checkoutData: CheckoutEventsData;
@@ -34,6 +40,8 @@ export function ProductDetails({ checkoutData }: ProductDetailsProps) {
                   currency: checkoutData.currency_code,
                 }).format(checkoutData.recurring_totals.total)}
                 /{checkoutData.items[0].billing_cycle.interval}
+                {checkoutData.items[0].trial_period?.interval &&
+                  ` after ${formatTrialPeriod(checkoutData.items[0].trial_period)}`}
               </p>
             )}
           </div>
