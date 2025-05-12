@@ -1,10 +1,21 @@
 "use client";
 
-import { type Environments, initializePaddle, type Paddle, type Theme } from "@paddle/paddle-js";
+import { CheckoutOpenLineItem, type Environments, initializePaddle, type Paddle, type Theme } from "@paddle/paddle-js";
 import type { CheckoutEventsData } from "@paddle/paddle-js/types/checkout/events";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+
+/**
+ * Builds an array of items for the checkout.
+ * It splits the priceId by commas and creates an item for each priceId.
+ * @param priceId - The priceId to create an item for.
+ * @returns An array of items for the checkout.
+ */
+function buildItems(priceId: string): CheckoutOpenLineItem[] {
+  const allPriceIds = priceId.split(",");
+  return allPriceIds.map((priceId) => ({ priceId, quantity: 1 }));
+}
 
 interface UsePaddleProps {
   priceId: string;
@@ -54,7 +65,7 @@ export function usePaddle({ priceId, userEmail, appUserId }: UsePaddleProps) {
           paddle.Checkout.open({
             ...(userEmail && { customer: { email: userEmail } }),
             ...(appUserId && { customData: { app_user_id: appUserId } }),
-            items: [{ priceId: priceId, quantity: 1 }],
+            items: buildItems(priceId),
           });
         }
       });
