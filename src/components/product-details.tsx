@@ -9,8 +9,8 @@ type ProductDetailsProps = {
 export function ProductDetails({ checkoutData }: ProductDetailsProps) {
   const currency = checkoutData.currency_code;
 
-  const trialPeriod = checkoutData.items.find((item) => item.trial_period)?.trial_period;
-  const billingCycle = checkoutData.items.find((item) => item.billing_cycle)?.billing_cycle;
+  const trialPeriod = checkoutData.items?.find((item) => item.trial_period)?.trial_period;
+  const billingCycle = checkoutData.items?.find((item) => item.billing_cycle)?.billing_cycle;
 
   return (
     <div className="flex flex-col gap-4">

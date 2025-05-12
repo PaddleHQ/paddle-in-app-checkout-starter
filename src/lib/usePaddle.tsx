@@ -12,13 +12,13 @@ import { useRouter } from "next/navigation";
  * @param priceId - The priceId to create an item for.
  * @returns An array of items for the checkout.
  */
-function buildItems(priceId: string): CheckoutOpenLineItem[] {
-  const allPriceIds = priceId.split(",");
-  return allPriceIds.map((priceId) => ({ priceId, quantity: 1 }));
+function buildItems(priceId: string | undefined): CheckoutOpenLineItem[] {
+  const allPriceIds = priceId?.split(",");
+  return allPriceIds?.map((priceId) => ({ priceId, quantity: 1 })) || [];
 }
 
 interface UsePaddleProps {
-  priceId: string;
+  priceId: string | undefined;
   userEmail?: string;
   // RevenueCat customer ID
   appUserId?: string;
