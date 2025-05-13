@@ -4,11 +4,14 @@ import { ProductDetails } from "@/components/product-details";
 import { ProductDetailsSkeleton } from "@/components/product-details-skeleton";
 import { usePaddle } from "@/lib/usePaddle";
 import { useSearchParams } from "next/navigation";
+import { useRedirectWarning } from "@/lib/redirect";
+
 import { Suspense } from "react";
 
 const defaultPriceId = process.env.NEXT_PUBLIC_PADDLE_PRICE_ID;
 
 function Checkout() {
+  useRedirectWarning();
   const params = useSearchParams();
   const userEmail = params.get("email") ?? undefined;
   const appUserId = params.get("app-user-id") ?? undefined;
