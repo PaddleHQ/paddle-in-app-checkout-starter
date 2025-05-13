@@ -2,7 +2,7 @@
 
 import { ProductDetails } from "@/components/product-details";
 import { ProductDetailsSkeleton } from "@/components/product-details-skeleton";
-import { usePaddle } from "@/lib/paddle";
+import { usePaddle } from "@/lib/usePaddle";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 

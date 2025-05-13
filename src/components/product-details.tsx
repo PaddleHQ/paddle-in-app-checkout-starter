@@ -9,6 +9,9 @@ type ProductDetailsProps = {
 export function ProductDetails({ checkoutData }: ProductDetailsProps) {
   const currency = checkoutData.currency_code;
 
+  const trialPeriod = checkoutData.items?.find((item) => item.trial_period)?.trial_period;
+  const billingCycle = checkoutData.items?.find((item) => item.billing_cycle)?.billing_cycle;
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
@@ -23,12 +26,10 @@ export function ProductDetails({ checkoutData }: ProductDetailsProps) {
           <h2 className="text-lg font-semibold">{checkoutData.items[0].product.name}</h2>
           <div className="flex flex-col">
             <p>{formatCurrency(checkoutData.totals.total, currency)} now</p>
-            {checkoutData.recurring_totals && checkoutData.items[0].billing_cycle && (
+            {checkoutData.recurring_totals && billingCycle && (
               <p className="text-sm text-muted-foreground">
-                Then {formatCurrency(checkoutData.recurring_totals.total, currency)}/
-                {formatBillingCycle(checkoutData.items[0].billing_cycle)}
-                {checkoutData.items[0].trial_period?.interval &&
-                  ` after ${formatTrialPeriod(checkoutData.items[0].trial_period)}`}
+                Then {formatCurrency(checkoutData.recurring_totals.total, currency)}/{formatBillingCycle(billingCycle)}
+                {trialPeriod && ` after ${formatTrialPeriod(trialPeriod)}`}
               </p>
             )}
           </div>
