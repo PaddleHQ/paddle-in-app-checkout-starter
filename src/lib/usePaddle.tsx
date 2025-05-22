@@ -22,9 +22,11 @@ interface UsePaddleProps {
   userEmail?: string;
   // RevenueCat customer ID
   appUserId?: string;
+  discountCode?: string;
+  discountId?: string;
 }
 
-export function usePaddle({ priceId, userEmail, appUserId }: UsePaddleProps) {
+export function usePaddle({ priceId, userEmail, appUserId, discountCode, discountId }: UsePaddleProps) {
   const { forcedTheme } = useTheme();
   const router = useRouter();
   const [paddle, setPaddle] = useState<Paddle | null>(null);
@@ -56,7 +58,6 @@ export function usePaddle({ priceId, userEmail, appUserId }: UsePaddleProps) {
             frameTarget: "paddle-checkout-frame",
             frameInitialHeight: 450,
             frameStyle: "width: 100%; background-color: transparent; border: none",
-            showAddDiscounts: false,
           },
         },
       }).then(async (paddle) => {
@@ -66,11 +67,12 @@ export function usePaddle({ priceId, userEmail, appUserId }: UsePaddleProps) {
             ...(userEmail && { customer: { email: userEmail } }),
             ...(appUserId && { customData: { app_user_id: appUserId } }),
             items: buildItems(priceId),
+            ...(discountCode ? { discountCode } : discountId ? { discountId } : {}),
           });
         }
       });
     }
-  }, [paddle?.Initialized, priceId, userEmail, forcedTheme, router, appUserId]);
+  }, [paddle?.Initialized, priceId, userEmail, forcedTheme, router, appUserId, discountCode, discountId]);
 
   return {
     checkoutData,
