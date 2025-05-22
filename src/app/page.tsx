@@ -16,8 +16,10 @@ function Checkout() {
   const userEmail = params.get("email") ?? undefined;
   const appUserId = params.get("app-user-id") ?? undefined;
   const priceId = params.get("price-id") ?? defaultPriceId ?? "";
+  const discountCode = params.get("discount-code") ?? undefined;
+  const discountId = params.get("discount-id") ?? undefined;
 
-  const { checkoutData } = usePaddle({ priceId, userEmail, appUserId });
+  const { checkoutData } = usePaddle({ priceId, userEmail, appUserId, discountCode, discountId });
 
   if (!priceId) {
     return <div className="grid place-items-center p-8 text-xl">Missing price ID</div>;

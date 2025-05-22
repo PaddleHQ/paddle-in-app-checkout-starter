@@ -41,6 +41,14 @@ export function ProductDetails({ checkoutData }: ProductDetailsProps) {
           <p className="text-muted-foreground">Subtotal</p>
           <p>{formatCurrency(checkoutData.totals.subtotal, currency)}</p>
         </div>
+
+        {checkoutData.totals.discount > 0 && (
+          <div className="flex justify-between">
+            <p className="text-muted-foreground">Discount</p>
+            <p>{formatCurrency(checkoutData.totals.discount, currency)}</p>
+          </div>
+        )}
+
         <div className="flex justify-between">
           <p className="text-muted-foreground">Tax</p>
           <p>{formatCurrency(checkoutData.totals.tax, currency)}</p>
