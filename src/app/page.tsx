@@ -26,11 +26,19 @@ function Checkout() {
   }
 
   return (
-    <div className="grid place-items-center max-w-4xl mx-auto gap-4 p-0 lg:grid-cols-[320px_1fr] lg:gap-16 lg:p-8 lg:place-items-start">
-      <div className="p-2 max-w-[643px] w-full pt-6">
+    <div
+      className={`
+        grid place-items-center mx-auto gap-4 p-0 px-2 
+        lg:max-w-6xl lg:mx-auto lg:gap-16 lg:grid-cols-[480px_1fr] lg:p-8 lg:place-items-start
+      `}
+    >
+      <div className="w-full max-w-[min(647px,100vw)] pt-6 lg:order-2">
         {checkoutData ? <ProductDetails checkoutData={checkoutData} /> : <ProductDetailsSkeleton />}
       </div>
-      <div className="paddle-checkout-frame w-full" />
+      <div className="w-full lg:order-1">
+        {checkoutData && <h2 className="hidden lg:block text-2xl py-6 font-semibold leading-none">Payment details</h2>}
+        <div className="paddle-checkout-frame w-full" />
+      </div>
     </div>
   );
 }
