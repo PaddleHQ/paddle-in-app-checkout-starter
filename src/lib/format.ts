@@ -22,7 +22,15 @@ export function formatBillingCycle(billingCycle: CheckoutEventsTimePeriod | null
  * @returns The formatted currency amount.
  */
 export function formatCurrency(amount: number, currency: string, locale: string | undefined = undefined) {
-  return new Intl.NumberFormat(locale, {
+  // this is copied from the Paddle Checkout so the currencies are formatted the same way
+
+  // NB. navigator doesn't look like it has all of these keys. We need to investigate if we need browserLanguage, systemLanguage and userLanguage here
+  // @ts-expect-error - navigator is not typed
+  const { language, browserLanguage, systemLanguage, userLanguage } = navigator;
+
+  const browserLocale = language || browserLanguage || systemLanguage || userLanguage || "en-US";
+
+  return new Intl.NumberFormat(browserLocale, {
     style: "currency",
     currency,
   }).format(amount);
