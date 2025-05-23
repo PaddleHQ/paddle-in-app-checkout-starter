@@ -1,4 +1,5 @@
-import { Separator } from "@/components/ui/separator";
+import { OrderSummary } from "@/components/order-summary";
+import { ProductImage } from "@/components/product-image";
 import { formatBillingCycle, formatCurrency, formatTrialPeriod } from "@/lib/format";
 import type { CheckoutEventsData } from "@paddle/paddle-js/types/checkout/events";
 
@@ -12,52 +13,44 @@ export function ProductDetails({ checkoutData }: ProductDetailsProps) {
   const trialPeriod = checkoutData.items?.find((item) => item.trial_period)?.trial_period;
   const billingCycle = checkoutData.items?.find((item) => item.billing_cycle)?.billing_cycle;
 
+  const numberOfPrices = checkoutData.items?.length;
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        {checkoutData.items[0].product.image_url && (
-          <img
-            src={checkoutData.items[0].product.image_url}
-            alt={checkoutData.items[0].product.name}
-            className="w-12 h-12 rounded-lg"
-          />
-        )}
-        <div>
+    <div className="flex flex-col gap-3 px-3">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start gap-4">
+          {checkoutData.items[0].product.image_url && (
+            <ProductImage
+              className="-translate-y-1.25"
+              imageUrl={checkoutData.items[0].product.image_url}
+              name={checkoutData.items[0].product.name}
+            />
+          )}
           <h2 className="text-lg font-semibold">{checkoutData.items[0].product.name}</h2>
-          <div className="flex flex-col">
-            <p>{formatCurrency(checkoutData.totals.total, currency)} now</p>
-            {checkoutData.recurring_totals && billingCycle && (
-              <p className="text-sm text-muted-foreground">
-                Then {formatCurrency(checkoutData.recurring_totals.total, currency)}/{formatBillingCycle(billingCycle)}
-                {trialPeriod && ` after ${formatTrialPeriod(trialPeriod)}`}
-              </p>
-            )}
-          </div>
+        </div>
+        {numberOfPrices > 1 && (
+          <p className="pt-1 text-sm text-muted-foreground whitespace-nowrap"> +{numberOfPrices - 1} more</p>
+        )}
+      </div>
+
+      <div>
+        <div className="flex flex-col">
+          <p>{formatCurrency(checkoutData.totals.total, currency)} now</p>
+          {checkoutData.recurring_totals && billingCycle && (
+            <p className="text-sm text-muted-foreground mt-1">
+              Then {formatCurrency(checkoutData.recurring_totals.total, currency)}/{formatBillingCycle(billingCycle)}
+              {trialPeriod && ` after ${formatTrialPeriod(trialPeriod)}`}
+            </p>
+          )}
         </div>
       </div>
-      <div className="hidden lg:flex flex-col gap-4 mt-8">
-        <Separator className="w-full" />
-        <div className="flex justify-between">
-          <p className="text-muted-foreground">Subtotal</p>
-          <p>{formatCurrency(checkoutData.totals.subtotal, currency)}</p>
-        </div>
 
-        {checkoutData.totals.discount > 0 && (
-          <div className="flex justify-between">
-            <p className="text-muted-foreground">Discount</p>
-            <p>{formatCurrency(checkoutData.totals.discount, currency)}</p>
-          </div>
-        )}
+      <div className="hidden lg:flex">
+        <OrderSummary checkoutData={checkoutData} expanded />
+      </div>
 
-        <div className="flex justify-between">
-          <p className="text-muted-foreground">Tax</p>
-          <p>{formatCurrency(checkoutData.totals.tax, currency)}</p>
-        </div>
-        <Separator className="w-full" />
-        <div className="flex justify-between">
-          <p className="text-muted-foreground">Total</p>
-          <p>{formatCurrency(checkoutData.totals.total, currency)}</p>
-        </div>
+      <div className="lg:hidden">
+        <OrderSummary checkoutData={checkoutData} />
       </div>
     </div>
   );

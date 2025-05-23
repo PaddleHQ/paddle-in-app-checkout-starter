@@ -21,7 +21,7 @@ export function formatBillingCycle(billingCycle: CheckoutEventsTimePeriod | null
  * @param locale - The locale to format.
  * @returns The formatted currency amount.
  */
-export function formatCurrency(amount: number, currency: string, locale: string = "en-US") {
+export function formatCurrency(amount: number, currency: string, locale: string | undefined = undefined) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
