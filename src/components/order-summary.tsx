@@ -21,7 +21,7 @@ export function OrderSummary(props: Props) {
     <Accordion
       type="single"
       collapsible
-      className="w-full mx-auto bg-card rounded-lg"
+      className="w-full mx-auto bg-card rounded-lg lg:bg-background"
       defaultValue={props.expanded ? "order-summary" : undefined}
     >
       <AccordionItem value="order-summary">
