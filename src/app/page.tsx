@@ -27,16 +27,22 @@ function Checkout() {
 
   return (
     <div
-      className={`
-        grid place-items-center mx-auto gap-4 p-0 px-2 
-        lg:max-w-6xl lg:mx-auto lg:gap-16 lg:grid-cols-[480px_1fr] lg:p-8 lg:place-items-start
-      `}
+      className={`grid mx-auto gap-4 p-0 px-2 
+                  lg:w-full lg:grid-cols-[1fr_1fr] lg:p-0 lg:h-screen`}
     >
-      <div className="w-full max-w-[min(647px,100vw)] pt-6 lg:order-2">
-        {checkoutData ? <ProductDetails checkoutData={checkoutData} /> : <ProductDetailsSkeleton />}
+      <div className="w-full flex justify-center lg:bg-card lg:order-2 lg:h-full">
+        <div
+          className={`w-full max-w-[min(647px,100vw)] pt-6 
+                      lg:px-8 lg:pt-16`}
+        >
+          {checkoutData ? <ProductDetails checkoutData={checkoutData} /> : <ProductDetailsSkeleton />}
+        </div>
       </div>
-      <div className="w-full lg:order-1">
-        {checkoutData && <h2 className="hidden lg:block text-2xl py-6 font-semibold leading-none">Payment details</h2>}
+
+      <div className="w-full max-w-[min(647px,100vw)] lg:order-1 lg:pt-10 mx-auto">
+        {checkoutData && (
+          <h2 className="hidden lg:block text-2xl py-6 px-3 font-semibold leading-none">Payment details</h2>
+        )}
         <div className="paddle-checkout-frame w-full" />
       </div>
     </div>
