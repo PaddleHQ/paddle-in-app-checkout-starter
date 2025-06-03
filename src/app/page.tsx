@@ -27,7 +27,7 @@ function Checkout() {
 
   return (
     <div
-      className={`grid mx-auto gap-4 p-0 px-2 
+      className={`grid mx-auto p-0 px-2 
                   lg:w-full lg:grid-cols-[1fr_1fr] lg:p-0 lg:h-screen`}
     >
       <div className="w-full flex justify-center lg:bg-card lg:order-2 lg:h-full">
@@ -39,7 +39,7 @@ function Checkout() {
         </div>
       </div>
 
-      <div className="w-full max-w-[min(647px,100vw)] lg:order-1 lg:pt-10 mx-auto">
+      <div className="w-full max-w-[min(647px,100vw)] lg:order-1 lg:pt-10 lg:px-4 mx-auto">
         {checkoutData && (
           <h2 className="hidden lg:block text-2xl py-6 px-3 font-semibold leading-none">Payment details</h2>
         )}
